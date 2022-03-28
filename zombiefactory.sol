@@ -1,14 +1,13 @@
 pragma solidity ^0.4.19;
-
 import "./ownable.sol";
+import "./safemath.sol";
 
 contract ZombieFactory is Ownable {
+    using SafeMath for uint256;
     event NewZombie(uint256 zombieId, string name, uint256 dna);
-
     uint256 dnaDigits = 16;
     uint256 dnaModulus = 10**dnaDigits;
     uint256 cooldownTime = 1 days;
-
     struct Zombie {
         string name;
         uint256 dna;
@@ -17,9 +16,7 @@ contract ZombieFactory is Ownable {
         uint16 winCount;
         uint16 lossCount;
     }
-
     Zombie[] public zombies;
-
     mapping(uint256 => address) public zombieToOwner;
     mapping(address => uint256) ownerZombieCount;
 
